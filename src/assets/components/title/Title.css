@@ -1,0 +1,11 @@
+.containerTitle {
+    border-bottom: solid 2px var(--colorPrimary);
+    width: 100%;
+    margin-bottom: 2.5rem;
+}
+.title {
+    font-size: 2.5rem;
+    border-bottom: solid 4px var(--colorPrimary);
+    margin: 0px;
+    width: max-content;
+}

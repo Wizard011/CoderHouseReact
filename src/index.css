@@ -1,0 +1,38 @@
+:root {
+  --colorPrimary: #e31a52;
+  --colorSecondary: #212529;
+  --colorTertiary: #666666;
+  --paddingDesktop: 3rem;
+  --paddinMObile: 1.5rem;
+}
+
+* {
+  margin: 0px;
+  padding: 0px; }
+
+h1, h2 {
+  font-family: "saira", sans-serif;
+  font-weight: 800; }
+
+h3, h4, h5 {
+  font-family: "saira", sans-serif;
+  font-weight: 500; }
+
+p {
+  font-family: "saira", sans-serif;
+  font-weight: 200; }
+
+ul li {
+  list-style: none;
+  font-family: "saira", sans-serif; }
+
+a:link, a:visited, a:active {
+  text-decoration: none; }
+
+.containerApp {
+  padding-left: var(--paddingDesktop);
+  padding-right: var(--paddingDesktop);
+}
+.marginSeccion {
+  margin: 3rem 0rem;
+}
