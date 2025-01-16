@@ -1,3 +1,4 @@
+import CartWidget from '../cartWidget/CartWidget'
 import './NavBar.css'
 
 export default function NavBar ({buttonNavBar}){
@@ -15,9 +16,7 @@ export default function NavBar ({buttonNavBar}){
                     ))}
                 </ul>
             </div>
-            <div className="containerShop">
-                <img src="./img/icons/shop.svg" alt="Icono de Carrito" />
-            </div>
+            <CartWidget/>
         </nav>
     )
 }
