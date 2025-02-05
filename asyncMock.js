@@ -1,5 +1,5 @@
 const products = [
-    {id: 1, category: 'computers', name: 'TYRION LANNISTER', img:'img/pcArmadas/pcArmada01.jpg', description: 'Intel Core i5 12400F - MSI PRO Z690-A - XFX Radeon RX 6600 8GB GDDR6 - Kingston DDR4 16GB 3600MHz - SSD M.2 WD 2TB Black SN750 - Cooler Master Mastercase H500 - AEROCOOL CYLON 500W RGB CON 80 PLUS BRONZE', price: 206555},
+    {id: 1, category: 'computers', name: 'TYRION LANNISTER', slug:'tyrion-lannister', img:'img/pcArmadas/pcArmada01.jpg', description: 'Intel Core i5 12400F - MSI PRO Z690-A - XFX Radeon RX 6600 8GB GDDR6 - Kingston DDR4 16GB 3600MHz - SSD M.2 WD 2TB Black SN750 - Cooler Master Mastercase H500 - AEROCOOL CYLON 500W RGB CON 80 PLUS BRONZE', price: 206555},
     {id: 2, category: 'computers', name: 'Computadora Dell', img:'img/pcArmadas/pcArmada02.jpg', price: 2000},
     {id: 3, category: 'computers', name: 'Monitor Samsung', img:'img/pcArmadas/pcArmada03.jpg', price: 1000},
     {id: 4, category: 'computers', name: 'Combo HP', img:'img/pcArmadas/pcArmada04.jpg', price: 2500},
@@ -45,4 +45,13 @@ export const getProductByCategory = (category) => {
             resolve(products.filter(product => product.category === category));
         }, 2000);
     })
+};
+
+export const getProductBySlug = (slug) => {
+    
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(products.find(product => product.slug === slug));
+        }, 2000);
+    });
 };
