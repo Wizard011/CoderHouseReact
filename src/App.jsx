@@ -13,12 +13,12 @@ export default function App() {
           <div className="containerApp marginSeccion">
             <Routes>  
                 <Route exact path="/" element={<ItemListContainer category={null} title='Bienvenidos a Digital4Tech'/>} />
-                <Route exact path="/computadoras" element={<ItemListContainer category='computers' title='Tu próxima compu gamer'/>} />
-                <Route exact path="/notebook" element={<ItemListContainer category='notebooks' title='Las notebooks más potentes'/>} />
-                <Route exact path="/monitores" element={<ItemListContainer category='monitors' title='Los mejores monitore'/>} />
-                <Route exact path="/combos" element={<ItemListContainer category='combos' title='Combos de mouse y teclados gamer'/>} />
-                <Route exact path="/auriculares" element={<ItemListContainer category='headphones' title='Encontra el mejor sonido en Digital4Tech'/>} />
-                <Route exact path="/sillas" element={<ItemListContainer category='chairs' title='Las sillas gamer más comodas'/>} />
+                <Route exact path="/computadoras" element={<ItemListContainer category='computers' title='Tu Próxima Computadora Gamer'/>} />
+                <Route exact path="/notebook" element={<ItemListContainer category='notebooks' title='Las Notebooks más Potentes'/>} />
+                <Route exact path="/monitores" element={<ItemListContainer category='monitors' title='Los Mejores Monitores'/>} />
+                <Route exact path="/combos" element={<ItemListContainer category='combos' title='Combos de Mouse y Teclados Gamer'/>} />
+                <Route exact path="/auriculares" element={<ItemListContainer category='headphones' title='Encontra el Mejor Sonido en Digital4Tech'/>} />
+                <Route exact path="/sillas" element={<ItemListContainer category='chairs' title='Las Sillas Gamer más Comodas'/>} />
 
                 <Route exact path="/:product" element={<ProductDetail/>} />
                 

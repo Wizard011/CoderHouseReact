@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProductBySlug } from "../../../../asyncMock";
 import Spinner from "../spinner/Spinner";
+import './ProductDetail.css'
 
 export default function ProductDetail () {
 
@@ -21,8 +22,25 @@ export default function ProductDetail () {
         loading ? (
             <Spinner />
         ) : (
-            <div>
-                <h1>Product detail de: {slugParams.product}</h1>
+            <div className="containerProductDetail">
+                <div className="row">
+                        {product&& (<>
+                            <div className="col-7">
+                                <div className="containerImgProdruct">
+                                    <img src={product.img} alt={product.name} />
+                                </div>
+                            </div>
+                            <div className="col-5">
+                                <h2>{product.name}</h2>
+                                <p>{product.description}</p>
+                                <h3>${product.price.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
+
+
+                                <button className="btn btn-secondary">Agregar al carrito</button>
+                            </div>
+                        </>
+                        )}
+                </div>
             </div>
         )
     );
