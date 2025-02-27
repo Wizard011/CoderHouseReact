@@ -7,7 +7,7 @@ export default function NavBar ({buttonNavBar}){
         <nav>
             <div className="continerLogo">
                 <Link to='/'>
-                    <img src="./img/logo.svg" alt="logo de Digital4Tech" />
+                    <img src="../img/logo.svg" alt="logo de Digital4Tech" />
                 </Link>
             </div>
             <div className="containerButton">

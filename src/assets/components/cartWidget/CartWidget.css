@@ -3,3 +3,12 @@
     border-radius: 5rem;
     width: 4rem;
 }
+
+.containerNumberCart {
+    color: #fff;
+    background-color: rgba(66, 11, 11, 0.082);
+    font-size: 1.5rem;
+    border-radius: 5rem;
+    width: 4rem;
+    z-index: 999;
+}
