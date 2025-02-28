@@ -49,11 +49,24 @@ export default function Cart({ title }) {
     };
 
     const handleIncrease = (id) => {
-        setQuantities(prevQuantities => ({
-            ...prevQuantities,
-            [id]: prevQuantities[id] + 1
-        }));
+        setQuantities(prevQuantities => {
+            const newQuantity = prevQuantities[id] + 1;
+            const product = cart.find(item => item.id === id);
+            
+            if (newQuantity <= product.stock) {
+                return { ...prevQuantities, [id]: newQuantity };
+            } else {
+                Swal.fire({
+                    title: "Stock insuficiente",
+                    text: `Solo quedan ${product.stock} unidades disponibles`,
+                    icon: "warning",
+                    confirmButtonColor: "#e31a52"
+                });
+                return prevQuantities;
+            }
+        });
     };
+    
 
     const handleDecrease = (id) => {
         if (quantities[id] > 1) {
@@ -94,7 +107,7 @@ export default function Cart({ title }) {
                                                     <button className='btn btn-dark' style={{width: '5rem'}}>{quantities[cartProduct.id] || 1}</button>
                                                     <button className='btn btn-danger' onClick={() => handleDecrease(cartProduct.id)}>-</button>
                                                 </div>
-                                                <h6>Stock disponible: {cartProduct.stock}</h6>
+                                                <h6>Stock disponible: {cartProduct.stock - (quantities[cartProduct.id] || 1)}</h6>
                                             </div>
                                         </div>
                                     </div>
