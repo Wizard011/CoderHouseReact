@@ -10,9 +10,13 @@ export default function CartWidget(){
     return (
         <div className="containerCartWidget">
             <Link to='/carrito'>
-                <div className="containerNumberCart">
-                    {cart.length}
-                </div>
+                {cart.length === 0 ? null : 
+                    <>
+                        <div className="containerNumberCart">
+                            {cart.length}
+                        </div>
+                    </>
+                }
                 <img src="../img/icons/shop.svg" alt="Icono de Carrito" />
             </Link>
         </div>

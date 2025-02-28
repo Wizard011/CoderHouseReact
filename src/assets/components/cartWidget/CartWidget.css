@@ -2,13 +2,23 @@
     background-color: rgba(0, 0, 0, 0.2 );
     border-radius: 5rem;
     width: 4rem;
+    position: relative;
+    display: inline-block;
 }
 
 .containerNumberCart {
-    color: #fff;
-    background-color: rgba(66, 11, 11, 0.082);
-    font-size: 1.5rem;
-    border-radius: 5rem;
-    width: 4rem;
-    z-index: 999;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: rgba(227, 26, 82, 0.8);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }

@@ -36,3 +36,21 @@ a:link, a:visited, a:active {
 .marginSeccion {
   margin: 3rem 0rem;
 }
+.buttonPrincipal {
+  background-color: #e31a52 !important;
+  color: white !important;
+  border-radius: 0.4rem;
+  padding: 0.8rem 1.3rem;
+}
+
+.lineDiv {
+  margin: 2rem 0rem;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+
+}
+.containerImgCartItem {
+  display: flex;
+  flex-direction: column;
+}

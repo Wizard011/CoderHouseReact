@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getProductBySlug } from "../../../../asyncMock";
 import Spinner from "../spinner/Spinner";
 import './ProductDetail.css'
 import { CartContext } from "../../../context/CartContext";
+import Swal from 'sweetalert2';
 
 export default function ProductDetail () {
 
@@ -21,8 +22,35 @@ export default function ProductDetail () {
             .finally(() => setLoading(false));
     }, [slugParams]);
     
+    const navigate = useNavigate();
+
     const handleClick = () => {
-        addItem(product);
+        const productExists = cart.find(item => item.id === product.id);
+
+        if (productExists) {
+            Swal.fire({
+                icon: 'warning',
+                title: '¡Producto ya esta en el carrito!',
+                text: 'Quieres ir al carrito?',
+                showCancelButton: true,
+                confirmButtonColor: "#e31a52",
+                cancelButtonColor: "#666666",
+                confirmButtonText: "Si, ir al carrito!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/carrito');
+                }});      
+        } else {
+            Swal.fire({
+                icon: 'success',
+                title: 'Producto agregado al carrito!',
+                text: 'Puedes verlo en el carrito.',
+                customClass: {
+                    confirmButton: "buttonPrincipal"
+                }
+            });
+            addItem(product);
+        }
     }
     
     return (
