@@ -7,23 +7,18 @@ import ItemCard from "../components/itemCart/ItemCart";
 export default function Cart({ title }) {
     const { cart, removeItem, clearCart } = useContext(CartContext);
 
-    // Estado para manejar la cantidad de cada producto en el carrito
     const [quantities, setQuantities] = useState({});
-
-    // Estado para el total
     const [totalSum, setTotalSum] = useState(0);
 
     useEffect(() => {
-        // Inicializa las cantidades de cada producto en 1
         const initialQuantities = cart.reduce((acc, item) => {
-            acc[item.id] = 1; // Asignar 1 por defecto a cada producto
+            acc[item.id] = 1;
             return acc;
         }, {});
         setQuantities(initialQuantities);
     }, [cart]);
 
     useEffect(() => {
-        // Calcula el total sumando el precio * cantidad de cada producto
         const total = cart.reduce((sum, cartProduct) => {
             const quantity = quantities[cartProduct.id] || 1;
             return sum + cartProduct.price * quantity;
