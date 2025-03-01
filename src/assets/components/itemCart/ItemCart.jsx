@@ -6,7 +6,7 @@ export default function ItemCard({ product }) {
     const [quantity, setQuantity] = useState(1);
     const [stock, setStock] = useState(product.stock - 1);
 
-    const { cart, removeItem } = useContext(CartContext); // Asegúrate de que tengas `updateItem` en tu contexto
+    const { cart, removeItem } = useContext(CartContext);
 
     const handleIncrease = () => {
         if (quantity < product.stock) {

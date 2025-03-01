@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { getProductByCategory, getProducts } from "../../../../asyncMock";
+// import { getProductByCategory, getProducts } from "../../../../asyncMock";
+import { getProducts, getProductByCategory } from "../../../firebase";
 import ProductCard from "../productCard/ProductCard";
 import Spinner from "../spinner/Spinner";
 import Title from "../title/Title";
 import './ItemListContainer.css';
+
 
 export default function ItemListContainer ({category, title}){
     

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getProductBySlug } from "../../../../asyncMock";
+import { getProductBySlug } from "../../../firebase";
 import Spinner from "../spinner/Spinner";
 import './ProductDetail.css'
 import { CartContext } from "../../../context/CartContext";
