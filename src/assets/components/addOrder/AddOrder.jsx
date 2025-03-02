@@ -1,6 +1,6 @@
 import './AddOrder.css'
 import { useContext, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../../../context/CartContext';
 import Swal from 'sweetalert2';
 import { addOrder } from '../../../firebase';
@@ -11,6 +11,8 @@ export default function AddOrder () {
   const { cart, clearCart, calculateTotal } = useContext(CartContext);
   const [loading, setLoading] = useState(null);
   const totalAmount = calculateTotal();
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,6 +66,7 @@ export default function AddOrder () {
       });
   
       clearCart();
+      navigate('/');
 
     } catch (error) {
       setLoading(false);
@@ -84,7 +87,7 @@ export default function AddOrder () {
           <div className="containerOrder containerForm">
             <h2>Resumen de compra</h2>
             {cart?.length > 0 ? (
-              <div>
+              <div style={{margin: '2rem'}}>
                 <table className="table table-striped">
                   <thead>
                     <tr className='table-info'>
@@ -116,16 +119,16 @@ export default function AddOrder () {
                 ) : (
                     <>
                         <h4>Total: {totalAmount.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h4>
-                        <form onSubmit={handleSubmit}>
-                            <label htmlFor="name" className='form-label'>Nombre:</label>
-                            <input type="text" name='name' className='form-control' />
-                            
-                            <label htmlFor="email" className='form-label'>Email:</label>
-                            <input type="email" name='email' className='form-control' />
+                        <form onSubmit={handleSubmit} style={{marginTop: '2rem'}}>
+                          <label htmlFor="name" className='form-label'>Nombre:</label>
+                          <input type="text" name='name' className='form-control' />
+                          <br />
+                          <label htmlFor="email" className='form-label'>Email:</label>
+                          <input type="email" name='email' className='form-control' />
+                          <br />
+                          <button type='submit' className='btn buttonPrincipal'>Confirmar</button>
 
-                                <button type='submit' className='btn buttonPrincipal'>Confirmar</button>
-
-                            <Link to={'/'}><button className='btn btn-secondary'>Volver</button></Link>
+                          <Link to={'/'}><button className='btn btn-secondary'>Volver</button></Link>
                         </form>
                     </>
                 )}
