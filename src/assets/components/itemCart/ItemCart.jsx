@@ -28,7 +28,6 @@ export default function ItemCart({ product }) {
             decreaseQuantity(product.id);
         }
     };
-    console.log(product.img);
     
     return (
         <div className="containerImgCartItem">

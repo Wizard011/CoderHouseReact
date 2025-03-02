@@ -79,7 +79,11 @@ export default function ProductDetail () {
                                     <h3>Precio: ${product.price.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
 
                                     <h5>Stock disponible: {product.stock}</h5>
-                                    <button className="btn buttonPrincipal" onClick={handleClick}>Agregar al carrito</button>
+                                    {product.stock > 0 ? (
+                                        <button className="btn buttonPrincipal" onClick={handleClick}>Agregar al carrito</button>
+                                    ):(
+                                        <button className="btn btn-secondary" disabled>Agotado</button>
+                                    )}
                                 </div>
                             </div>
                         </>

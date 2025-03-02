@@ -90,7 +90,7 @@ export default function AddOrder () {
               <div style={{margin: '2rem'}}>
                 <table className="table table-striped">
                   <thead>
-                    <tr className='table-info'>
+                    <tr className='table-success'>
                       <th scope="col">Producto</th>
                       <th scope="col">Cantidad</th>
                       <th scope="col">SubTotal</th>
