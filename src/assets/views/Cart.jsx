@@ -1,12 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import Title from "../components/title/Title";
 import { CartContext } from "../../context/CartContext";
 import Swal from 'sweetalert2'
-import ItemCard from "../components/itemCart/ItemCart";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Cart({ title }) {
-    const { cart, removeItem, clearCart, increaseQuantity, decreaseQuantity } = useContext(CartContext);
+    const { cart, removeItem, clearCart, increaseQuantity, decreaseQuantity, calculateTotal} = useContext(CartContext);
 
     const handleClickCleanAll = () => {
         Swal.fire({
@@ -34,7 +33,7 @@ export default function Cart({ title }) {
         const product = cart.find(item => item.id === id);
     
         if (product.quantity < product.stock) {
-            increaseQuantity(id); // Solo pasa el ID, la función lo incrementará en 1
+            increaseQuantity(id);
         } else {
             Swal.fire({
                 title: "Stock insuficiente",
@@ -54,6 +53,7 @@ export default function Cart({ title }) {
         }
     };
     
+    const totalAmount = calculateTotal();
 
     const handleRemoveItem = (id) => {
         removeItem(id);
@@ -98,8 +98,7 @@ export default function Cart({ title }) {
                         <div className="col-5">
                             <div className="containerTotalCart">
                                 <h3>Total de la Compra:</h3>
-                                {/* <h2>${totalSum.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h2> */}
-                                <h2>total: $</h2>
+                                <h2>${totalAmount.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h2>
                                 <Link to={'/chechout'}><button className="btn btn-success">Confirmar Compra</button></Link>
                                 <button className="btn btn-danger" onClick={handleClickCleanAll}>Vaciar Carrito</button>
                             </div>

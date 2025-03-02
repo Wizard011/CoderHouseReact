@@ -50,7 +50,7 @@ a:link, a:visited, a:active {
   background-color: #e31a52 !important;
   color: white !important;
   border-radius: 0.4rem;
-  padding: 0.8rem 1.3rem;
+  padding: 0.38rem 1.3rem;
 }
 
 .lineDiv {
@@ -60,7 +60,7 @@ a:link, a:visited, a:active {
   background-color: #ccc;
 
 }
-.containerImgCartItem {
+/* .containerImgCartItem {
   display: flex;
   flex-direction: column;
-}
+} */

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, query, where, getDocs, getDoc, doc, increment, runTransaction } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs, addDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
@@ -81,7 +81,7 @@ export async function getProductBySlug(slug) {
       console.error("Error al generar orden nueva:", error);
     }
   }
-  
+
   // export async function updateStock(productId, quantity) {
   //   const productRef = doc(db, "items", productId); // Referencia al producto
   //   try {
