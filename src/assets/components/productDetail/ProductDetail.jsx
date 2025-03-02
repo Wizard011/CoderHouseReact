@@ -13,7 +13,7 @@ export default function ProductDetail () {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const {cart, setCart, addItem} = useContext(CartContext);    
+    const {cart, addItem} = useContext(CartContext);    
 
     useEffect(() => {
         setLoading(true);
@@ -66,18 +66,21 @@ export default function ProductDetail () {
             <div className="containerProductDetail containerTag">
                 <div className="row">
                         {product&& (<>
-                            <div className="col-7">
+                            <div className="col-6">
                                 <div className="containerImgProdruct">
                                     <img src={`../${product.img}`} alt={product.name} />
                                 </div>
                             </div>
-                            <div className="col-5">
-                                <h2>{product.name}</h2>
-                                <p>{product.description}</p>
-                                <h3>${product.price.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
+                            <div className="col-6" style={{display: 'flex', alignItems: 'center'}}>
+                                <div className="containerInfoDetail">
+                                    <h2>{product.name}</h2>
+                                    <p>{product.description}</p>
+                                    <div className="lineDiv"></div>
+                                    <h3>Precio: ${product.price.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
 
-
-                                <button className="btn btn-secondary" onClick={handleClick}>Agregar al carrito</button>
+                                    <h5>Stock disponible: {product.stock}</h5>
+                                    <button className="btn buttonPrincipal" onClick={handleClick}>Agregar al carrito</button>
+                                </div>
                             </div>
                         </>
                         )}

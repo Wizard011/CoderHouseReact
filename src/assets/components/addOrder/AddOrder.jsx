@@ -111,23 +111,24 @@ export default function AddOrder () {
               </>
             )}
             <div className="lineDiv"></div>
-            <h4>Total: {totalAmount.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h4>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="name" className='form-label'>Nombre:</label>
-                <input type="text" name='name' className='form-control' />
-                
-                <label htmlFor="email" className='form-label'>Email:</label>
-                <input type="email" name='email' className='form-control' />
-
-                {loading ? (
-                    <Spinner/>
+            {loading ? (
+                <Spinner/>
                 ) : (
-                    <button type='submit' className='btn buttonPrincipal'>Confirmar</button>
+                    <>
+                        <h4>Total: {totalAmount.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h4>
+                        <form onSubmit={handleSubmit}>
+                            <label htmlFor="name" className='form-label'>Nombre:</label>
+                            <input type="text" name='name' className='form-control' />
+                            
+                            <label htmlFor="email" className='form-label'>Email:</label>
+                            <input type="email" name='email' className='form-control' />
+
+                                <button type='submit' className='btn buttonPrincipal'>Confirmar</button>
+
+                            <Link to={'/'}><button className='btn btn-secondary'>Volver</button></Link>
+                        </form>
+                    </>
                 )}
-
-                <Link to={'/carrito'}><button className='btn btn-secondary'>Volver</button></Link>
-                </form>
-
           </div>
         </div>
       </div>
