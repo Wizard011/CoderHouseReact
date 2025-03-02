@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getProductBySlug } from "../../../firebase";
 import Spinner from "../spinner/Spinner";
 import './ProductDetail.css'
@@ -13,7 +13,7 @@ export default function ProductDetail () {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const {cart, setCart, addItem} = useContext(CartContext);
+    const {cart, setCart, addItem} = useContext(CartContext);    
 
     useEffect(() => {
         setLoading(true);
@@ -21,8 +21,6 @@ export default function ProductDetail () {
             .then(response => setProduct(response))
             .finally(() => setLoading(false));
     }, [slugParams]);
-    
-    const navigate = useNavigate();
 
     const handleClick = () => {
         const productExists = cart.find(item => item.id === product.id);
@@ -31,14 +29,22 @@ export default function ProductDetail () {
             Swal.fire({
                 icon: 'warning',
                 title: '¡Producto ya esta en el carrito!',
-                text: 'Quieres ir al carrito?',
+                text: 'Quieres agregar otro?',
                 showCancelButton: true,
                 confirmButtonColor: "#e31a52",
                 cancelButtonColor: "#666666",
-                confirmButtonText: "Si, ir al carrito!"
+                confirmButtonText: "Si, agregar otros!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    navigate('/carrito');
+                    addItem(product);
+                    Swal.fire ({
+                        icon: 'success',
+                        title: 'Producto agregado al carrito!',
+                        customClass: {
+                            confirmButton: "buttonPrincipal"
+                        }
+                    })
+
                 }});      
         } else {
             Swal.fire({
@@ -57,7 +63,7 @@ export default function ProductDetail () {
         loading ? (
             <Spinner />
         ) : (
-            <div className="containerProductDetail">
+            <div className="containerProductDetail containerTag">
                 <div className="row">
                         {product&& (<>
                             <div className="col-7">

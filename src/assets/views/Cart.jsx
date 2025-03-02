@@ -3,31 +3,10 @@ import Title from "../components/title/Title";
 import { CartContext } from "../../context/CartContext";
 import Swal from 'sweetalert2'
 import ItemCard from "../components/itemCart/ItemCart";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Cart({ title }) {
-    const { cart, removeItem, clearCart } = useContext(CartContext);
-    
-    console.log(cart);
-    
-
-    const [quantities, setQuantities] = useState({});
-    const [totalSum, setTotalSum] = useState(0);
-
-    useEffect(() => {
-        const initialQuantities = cart.reduce((acc, item) => {
-            acc[item.id] = 1;
-            return acc;
-        }, {});
-        setQuantities(initialQuantities);
-    }, [cart]);
-
-    useEffect(() => {
-        const total = cart.reduce((sum, cartProduct) => {
-            const quantity = quantities[cartProduct.id] || 1;
-            return sum + cartProduct.price * quantity;
-        }, 0);
-        setTotalSum(total);
-    }, [cart, quantities]);
+    const { cart, removeItem, clearCart, increaseQuantity, decreaseQuantity } = useContext(CartContext);
 
     const handleClickCleanAll = () => {
         Swal.fire({
@@ -52,33 +31,29 @@ export default function Cart({ title }) {
     };
 
     const handleIncrease = (id) => {
-        setQuantities(prevQuantities => {
-            const newQuantity = prevQuantities[id] + 1;
-            const product = cart.find(item => item.id === id);
-            
-            if (newQuantity <= product.stock) {
-                return { ...prevQuantities, [id]: newQuantity };
-            } else {
-                Swal.fire({
-                    title: "Stock insuficiente",
-                    text: `Solo quedan ${product.stock} unidades disponibles`,
-                    icon: "warning",
-                    confirmButtonColor: "#e31a52"
-                });
-                return prevQuantities;
-            }
-        });
-    };
+        const product = cart.find(item => item.id === id);
     
-
-    const handleDecrease = (id) => {
-        if (quantities[id] > 1) {
-            setQuantities(prevQuantities => ({
-                ...prevQuantities,
-                [id]: prevQuantities[id] - 1
-            }));
+        if (product.quantity < product.stock) {
+            increaseQuantity(id); // Solo pasa el ID, la función lo incrementará en 1
+        } else {
+            Swal.fire({
+                title: "Stock insuficiente",
+                text: `Solo quedan ${product.stock} unidades disponibles`,
+                icon: "warning",
+                confirmButtonColor: "#e31a52"
+            });
         }
     };
+    
+    
+    const handleDecrease = (id) => {
+        const product = cart.find(item => item.id === id);
+
+        if (product.quantity > 1) {
+            decreaseQuantity(id, product.quantity - 1);
+        }
+    };
+    
 
     const handleRemoveItem = (id) => {
         removeItem(id);
@@ -87,7 +62,7 @@ export default function Cart({ title }) {
         <>
             <Title title={title} />
             {cart.length > 0 ? 
-               ( <div className="containerItemCart">
+               ( <div className="containerItemCart containerTag">
                     <div className="row">
                         <div className="col-7">
                             <div className="containerImgCartItem">
@@ -105,13 +80,13 @@ export default function Cart({ title }) {
                                                 <div className="containerInfoCartItem">
                                                     <h4>{cartProduct.name}</h4>
                                                     <h5>Precio unitario: <strong>$ </strong>{cartProduct.price}</h5>
-                                                    <h5>Sub Total: <strong>$ </strong>{cartProduct.price * (quantities[cartProduct.id] || 1)}</h5>
-                                                    <div>
-                                                        <button className='btn btn-success' onClick={() => handleIncrease(cartProduct.id)}>+</button>
-                                                        <button className='btn btn-dark' style={{width: '5rem'}}>{quantities[cartProduct.id] || 1}</button>
-                                                        <button className='btn btn-danger' onClick={() => handleDecrease(cartProduct.id)}>-</button>
+                                                    <h5>Sub Total: <strong>$ </strong>{cartProduct.price * cartProduct.quantity}</h5>
+                                                    <div style={{gap:'2rem'}}>
+                                                        <button className='btn btn-outline-success' onClick={() => handleIncrease(cartProduct.id)}>+</button>
+                                                        <button className="btn">{cartProduct.quantity}</button>
+                                                        <button className='btn btn-outline-danger' onClick={() => handleDecrease(cartProduct.id)}>-</button>
                                                     </div>
-                                                    <h6>Stock disponible: {cartProduct.stock - (quantities[cartProduct.id] || 1)}</h6>
+                                                    <h6 style={{marginTop: '1rem'}}>Stock disponible: {cartProduct.stock - cartProduct.quantity}</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -123,7 +98,9 @@ export default function Cart({ title }) {
                         <div className="col-5">
                             <div className="containerTotalCart">
                                 <h3>Total de la Compra:</h3>
-                                <h2>${totalSum.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h2>
+                                {/* <h2>${totalSum.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h2> */}
+                                <h2>total: $</h2>
+                                <Link to={'/chechout'}><button className="btn btn-success">Confirmar Compra</button></Link>
                                 <button className="btn btn-danger" onClick={handleClickCleanAll}>Vaciar Carrito</button>
                             </div>
                         </div>

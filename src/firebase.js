@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, query, where, getDocs, getDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs, getDoc, doc, increment, runTransaction } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
@@ -56,11 +56,11 @@ export async function getProductByCategory(category) {
 export async function getProductBySlug(slug) {
     try {
       const queriSlug = query(collection(db, "items"), where("slug", "==", slug));
-      const querySnapshot = await getDocs(queriSlug);
+      const snapshot = await getDocs(queriSlug);
   
-      if (!querySnapshot.empty) {
-        const product = querySnapshot.docs[0].data();
-        const productWithId = { id: querySnapshot.docs[0].id, ...product };  // Agregar el id al producto
+      if (!snapshot.empty) {
+        const product = snapshot.docs[0].data();
+        const productWithId = { id: snapshot.docs[0].id, ...product };
         return productWithId;
 
       } else {
@@ -71,4 +71,43 @@ export async function getProductBySlug(slug) {
       return [];
     }
   }
-
+  
+  export async function addOrder(order){
+    const orderCollection = collection(db, 'orders');
+    try {
+      const docRef = await addDoc (orderCollection, order);
+      return docRef.id;
+    } catch (error) {
+      console.error("Error al generar orden nueva:", error);
+    }
+  }
+  
+  // export async function updateStock(productId, quantity) {
+  //   const productRef = doc(db, "items", productId); // Referencia al producto
+  //   try {
+  //     const productDoc = await getDoc(productRef);
+  //     if (productDoc.exists()) {
+  //       const currentStock = productDoc.data().stock;
+  //       const newStock = currentStock - quantity;
+  
+  //       // Actualizar el stock en Firestore
+  //       if (newStock >= 0) {
+  //         await updateDoc(productRef, { stock: newStock });
+  //         console.log(`Stock actualizado para el producto ${productId}: ${newStock}`);
+  //         return true; // Éxito
+  //       } else {
+  //         console.log("Stock insuficiente");
+  //         return false; // Stock insuficiente
+  //       }
+  //     } else {
+  //       console.log("Producto no encontrado");
+  //       return false; // Producto no encontrado
+  //     }
+  //   } catch (error) {
+  //     console.error("Error al actualizar el stock:", error);
+  //     return false; // Error al actualizar el stock
+  //   }
+  // }
+  
+  
+  

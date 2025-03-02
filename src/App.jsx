@@ -6,6 +6,7 @@ import NotFound from './assets/views/NotFoun';
 import ProductDetail from './assets/components/productDetail/ProductDetail';
 import { CartProvider } from './context/CartContext';
 import Cart from './assets/views/Cart';
+import Chechout from './assets/views/Chechout';
 
 export default function App() {
 
@@ -26,6 +27,7 @@ export default function App() {
               <Route exact path="/producto/:product" element={<ProductDetail/>} />
 
               <Route exact path="/carrito" element={<Cart title='Tu Carrito de Compras'/>} />
+              <Route exact path="/chechout" element={<Chechout/>} />
               
               <Route exact path="*" element={<NotFound/>} />
           </Routes>
